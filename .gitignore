@@ -1,1 +1,4 @@
-liens.xlsx
+liens_workspace/liens.xlsx
+liens_workspace/redemptions.xlsx
+liens_workspace/liens_to_import.xlsx
+db.sqlite3

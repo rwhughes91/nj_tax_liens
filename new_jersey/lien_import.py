@@ -1,7 +1,11 @@
 import pandas as pd
 import os
-from datetime import datetime, date
 import math
+
+from datetime import datetime, date
+from pathlib import Path
+
+path = os.path.join(Path(os.path.abspath(__file__)).parent.parent, "liens_workspace", "liens_to_import.xlsx")
 
 
 def lien_modifier(lien):
@@ -17,7 +21,7 @@ def lien_modifier(lien):
 
 
 def lien_import(model):
-    liens = pd.read_excel('C:\\Users\\rhughes\\Documents\\django\\tang_dashboard\\new_jersey\\liens_for_dashboard.xlsx')
+    liens = pd.read_excel(path, sheet_name="liens")
     lien_models = []
     for index, lien in liens.iterrows():
         fixture = {}
@@ -37,7 +41,6 @@ def lien_import(model):
 
 
 def sub_modifier(subs):
-    #subs = pd.read_excel('C:\\Users\\rhughes\\Documents\\django\\tang_dashboard\\new_jersey\\subs_for_dashboard.xlsx', sheet_name="agg")
     subs_modified = {}
     for index, sub in subs.iterrows():
         sub_date = datetime.strptime(sub['sub_date'], '%Y-%m-%d').date()
@@ -52,7 +55,7 @@ def sub_modifier(subs):
 
 
 def sub_import(lien_model, sub_model):
-    subs = pd.read_excel('C:\\Users\\rhughes\\Documents\\django\\tang_dashboard\\new_jersey\\subs_for_dashboard.xlsx', sheet_name="agg")
+    subs = pd.read_excel(path, sheet_name="subs")
     subs = sub_modifier(subs)
     sub_list = []
     for lien_id, subs in subs.items():
@@ -63,3 +66,7 @@ def sub_import(lien_model, sub_model):
             s.lien = lien
             sub_list.append(s)
     return sub_list
+
+
+if __name__ == "__main__":
+    print(path)
