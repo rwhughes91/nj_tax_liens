@@ -1,9 +1,10 @@
 import pandas as pd
 import os
 import math
-
 from datetime import datetime, date
 from pathlib import Path
+
+from new_jersey.models import Lien, Sub
 
 path = os.path.join(Path(os.path.abspath(__file__)).parent.parent, "liens_workspace", "liens_to_import.xlsx")
 
@@ -20,8 +21,7 @@ def lien_modifier(lien):
         lien.pop(key)
 
 
-def lien_import(model):
-    liens = pd.read_excel(path, sheet_name="liens")
+def lien_import(liens):
     lien_models = []
     for index, lien in liens.iterrows():
         fixture = {}
@@ -35,7 +35,7 @@ def lien_import(model):
             else:
                 fixture[column_name] = column_value
         lien_modifier(fixture)
-        lien_instance = model(**fixture)
+        lien_instance = Lien(**fixture)
         lien_models.append(lien_instance)
     return lien_models
 
@@ -54,19 +54,19 @@ def sub_modifier(subs):
     return subs_modified
 
 
-def sub_import(lien_model, sub_model):
-    subs = pd.read_excel(path, sheet_name="subs")
+def sub_import(subs):
     subs = sub_modifier(subs)
     sub_list = []
     for lien_id, subs in subs.items():
         id = int(lien_id)
-        lien = lien_model.objects.get(lien_id=id)
+        lien = Lien.objects.get(lien_id=id)
         for sub in subs:
-            s = sub_model(**sub)
+            s = Sub(**sub)
             s.lien = lien
             sub_list.append(s)
     return sub_list
 
 
 if __name__ == "__main__":
-    print(path)
+    liens = pd.read_excel(path, sheet_name="liens")
+    subs = pd.read_excel(path, sheet_name="subs")

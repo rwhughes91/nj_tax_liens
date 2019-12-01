@@ -1,0 +1,168 @@
+{% extends "new_jersey/layout.html" %}
+{% load static from staticfiles %}
+{% load new_jersey_extras %}
+{% load humanize %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <li class="breadcrumb-item"><a href="{% url 'new_jersey:home'%}">Search</a></li>
+  <li class="breadcrumb-item active"><a href="{% url 'new_jersey:lien_detail' lien_id=lien.lien_id %}">Detail</a></li>
+
+{% endblock %}
+
+{% block content %}
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" id="home" href="#home" role="tab">Lien # {{lien.lien_id}}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href='#sub_form' id="sub_tab" role="tab">Add Sub</a>
+    </li>
+</ul>
+<div class="gen-lien-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="gen-lien-info">
+          <p style="padding-bottom:3px; color: #007bff;">General Information</p>
+          <div class="row">
+            <div class="col">
+              <p class="title">Lien id</p>
+              <p class="description">{{lien.lien_id}}</p>
+              <p class="title">Block-Lot{% if lien.qualifier %}-Qual{% endif %}</p>
+              <p class="description">{{lien.block}}-{{lien.lot}}{% if lien.qualifier %}-{{lien.qualifier}}{% endif %}</p>
+              <p class="title">Township</p>
+              <p class="description">{{lien.county}}</p>
+              <p class="title">Cert #</p>
+              <p class="description">{{lien.certificate_number}}</p>
+            </div>
+            <div class="col">
+              <p class="title">Address</p>
+              <p class="description">{{lien.address}}</p>
+              <p class="title">Recording Fee</p>
+              <p class="description">{{lien.recording_fee|intcomma|currency}}</p>
+              <p class="title">Sale Date</p>
+              <p class="description">{{lien.sale_date}}</p>
+              <p class="title">Lien Type</p>
+              <p class="description">{{lien.lien_type}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="gen-lien-info">
+          <p style="padding-bottom:3px; color: #007bff;">Financial Information</p>
+          <div class="row">
+            <div class="col">
+              <p class="title">Winning Rate</p>
+              <p class="description">{{lien.winning_bid_percentage|percentage}}</p>
+              <p class="title">Search Fee</p>
+              <p class="description">{{lien.search_fee|intcomma|currency}}</p>
+              <p class="title">Premium</p>
+              <p class="description">{{lien.premium|intcomma|currency}}</p>
+              <p class="title">Face Value</p>
+              <p class="description">{{lien.certificate_face_value|intcomma|currency}}</p>
+            </div>
+            <div class="col">
+              <p class="title">YEP</p>
+              <p class="description">{{lien.year_end_penalty|intcomma|currency}}</p>
+              <p class="title">Flate Rate</p>
+              <p class="description">{{lien.flat_rate|intcomma|currency}}</p>
+              <p class="title">Cert Int.</p>
+              <p class="description">{{lien.cert_int|intcomma|currency}}</p>
+              <p class="title">Total Cash Out</p>
+              <p class="description">{{lien.total_cash_out|intcomma|currency}}</p>
+            </div>
+            <div class="col">
+              <p class="title">Principal Paid</p>
+              <p class="description">{{lien.total_principal_paid|intcomma|currency}}</p>
+              <p class="title">Principal Bal.</p>
+              <p class="description">{{lien.total_principal_balance|intcomma|currency}}</p>
+              <p class="title">Total Int Due</p>
+              <p class="description">{{lien.total_actual_interest|intcomma|currency}}</p>
+              <p class="title">Legal Fees</p>
+              <p class="description">{{lien.total_legal_fees|intcomma|currency}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div id="subs_table_list" class="gen-lien-info">
+          <p style="padding-bottom:3px; color: #007bff;">Subsequents</p>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sub in lien.sub_set.all %}
+                <tr class="table-row">
+                  <th id="identification" class="identification" scope="row">{{sub.id}}</th>
+                  <td id="typeSub">{{sub.sub_type}}</td>
+                  <td id="dateSub">{{sub.sub_date}}</td>
+                  <td id="amountSub">{{sub.total|intcomma|currency}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="gen-lien-info">
+          <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" id="redemption_tab" href="#redemption" role="tab">Redemption Figures</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href='#notes' id="notes_tab" role="tab">Notes</a>
+              </li>
+          </ul>
+          <div id="notes_content">
+            <form id="red_content" class="form-inline" method='POST' action="">
+              {% csrf_token %}
+              <div style="display:none;" id="text_field_notes" class="form-group">{{lien_form.notes}}</div>
+              <div class="red_form form-group">{{ lien_form.status }}</div>
+              <div class="red_form form-group">{{ lien_form.redemption_date }}</div>
+              <div class="red_form form-group">{{ lien_form.redemption_amount }}</div>
+              <div style="margin-top:1px; text-align:right;">
+                <button type="submit" class="btn btn-primary btn-md">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row" id="sub_form" style="display:none;">
+          <div class="col">
+            <div class="gen-lien-info">
+              <p style="padding-bottom:3px; color: #007bff;">Add Subsequent</p>
+              <form method='POST' action='' class="form-inline" id="lien_form">
+                {% csrf_token %}
+                {% for field in sub_form %}
+                <div class="form-group">
+                  {{ field }}
+                </div>
+                {% endfor %}
+                <div style="margin-top:3px;">
+                  <button type="submit" class="btn btn-primary btn-md">Create</button>
+                  <button type="button" id="clear" class="btn btn-danger btn-md">Clear</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js%}
+{{ block.super }}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}Tang-Dashboard{% endblock %}
+{% block body_content %}
+<div class="jumbotron">
+  <h1 class="display-4">Welcome!</h1>
+  <p class="lead">Check out the side navigation bar!</p>
+  <hr class="my-4">
+  <p>Please see below for a tutorial on how this site works!</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{% url 'help' %}" role="button">Learn more</a>
+  </p>
+</div>
+{% endblock %}

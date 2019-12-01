@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+
+{% block title %}New Jersey Tax Liens{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'new_jersey/css/layout.css' %}">
+{% endblock %}
+
+{% block body_content %}
+<nav class="navbar navbar-expand-lg nj-navbar-bg navbar-light hover">
+    <div class="navbar-nav nj-nav">
+      <a class="nav-item nav-link {% if request.resolver_match.url_name != 'batch_subs' and request.resolver_match.url_name != 'reports_exports' %}app-active{% endif %}" href="{% url 'new_jersey:home'%}">Lien Search</a>
+      <span class="nav-border">&nbsp;</span>
+      <a class="nav-item nav-link {% if request.resolver_match.url_name == 'batch_subs' %}app-active{% endif %}" href="#">Batch Subs</a>
+      <span class="nav-border">&nbsp;</span>
+      <a class="nav-item nav-link {% if request.resolver_match.url_name == 'reports_exports' %}app-active{% endif %}" href="#">Reports & Exports</a>
+      <span class="nav-border">&nbsp;</span>
+    </div>
+  {% block navbar %}
+  {% endblock %}
+</nav>
+<ol class="breadcrumb">
+  {% block breadcrumb %}
+  {% endblock %}
+</ol>
+{% block content %}{% endblock %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'new_jersey/js/layout.js' %}"></script>
+{% endblock %}

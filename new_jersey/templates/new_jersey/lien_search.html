@@ -1,0 +1,56 @@
+{% extends "new_jersey/layout.html" %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Block</th>
+        <th scope="col">Lot</th>
+        <th scope="col">Qualifier</th>
+        <th scope="col">Certificate #</th>
+        <th scope="col">Address</th>
+        <th scope="col">Sale Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lien in liens %}
+      <tr class="table-row" data-href="{% url 'new_jersey:lien_detail' lien_id=lien.lien_id %}">
+        <th scope="row">{{lien.lien_id}}</th>
+        <td> {{lien.block }}</td>
+        <td> {{lien.lot }}</td>
+        <td> {{lien.qualifier }}</td>
+        <td> {{lien.certificate_number }}</td>
+        <td> {{lien.address }}</td>
+        <td> {{lien.sale_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+{% block js %}
+{{ block.super }}
+  <script>
+  // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+  </script>
+{% endblock %}

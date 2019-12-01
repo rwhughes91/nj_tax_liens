@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="620d63e1-f443-49fd-a3b2-84251b0e0a53" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_jersey/lien_import.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_jersey/lien_import.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_jersey/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_jersey/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_jersey/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_jersey/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nj_tax_liens/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/nj_tax_liens/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nj_tax_liens/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/nj_tax_liens/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +22,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -29,10 +34,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1UJu1OlFKAHZS7eRqXMjGkcaoWY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -45,6 +54,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+      <recent name="$PROJECT_DIR$/assets/img" />
       <recent name="$PROJECT_DIR$/liens_workspace" />
     </key>
   </component>
@@ -124,7 +135,7 @@
       <option name="presentableId" value="Default" />
       <updated>1575086803906</updated>
       <workItem from="1575086826077" duration="5113000" />
-      <workItem from="1575091965080" duration="5909000" />
+      <workItem from="1575091965080" duration="25336000" />
     </task>
     <servers />
   </component>
